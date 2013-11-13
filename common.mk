@@ -50,5 +50,5 @@ ifneq ($(TARGET_DISPLAY_INSECURE_MM_HEAP),true)
 endif
 
 ifeq ($(TARGET_BOARD_PLATFORM),msm8660)
-    common_flags += -DNO_IOMMU
+    common_flags += -DNO_IOMMU -DUSE_COPYBIT_COMPOSITION_FALLBACK
 endif
