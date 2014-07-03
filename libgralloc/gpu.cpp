@@ -343,16 +343,27 @@ int gpu_context_t::gralloc_alloc(alloc_device_t* dev, int w, int h, int format,
     gpu_context_t* gpu = reinterpret_cast<gpu_context_t*>(dev);
     return gpu->alloc_impl(w, h, format, usage, pHandle, pStride, 0);
 }
+
 int gpu_context_t::gralloc_alloc_size(alloc_device_t* dev, int w, int h,
                                       int format, int usage,
                                       buffer_handle_t* pHandle, int* pStride,
                                       int bufferSize)
 {
+    int size;
+
     if (!dev) {
         return -EINVAL;
     }
+
+    size = bufferSize;
+
+#ifdef TENDERLOIN_HACKS
+    if (bufferSize > 0x4000000)
+        size = 0;
+#endif
+
     gpu_context_t* gpu = reinterpret_cast<gpu_context_t*>(dev);
-    return gpu->alloc_impl(w, h, format, usage, pHandle, pStride, bufferSize);
+    return gpu->alloc_impl(w, h, format, usage, pHandle, pStride, size);
 }
 
 
