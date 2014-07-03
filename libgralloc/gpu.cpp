@@ -357,10 +357,8 @@ int gpu_context_t::gralloc_alloc_size(alloc_device_t* dev, int w, int h,
 
     size = bufferSize;
 
-#ifdef TENDERLOIN_HACKS
     if (bufferSize > 0x4000000)
         size = 0;
-#endif
 
     gpu_context_t* gpu = reinterpret_cast<gpu_context_t*>(dev);
     return gpu->alloc_impl(w, h, format, usage, pHandle, pStride, size);
