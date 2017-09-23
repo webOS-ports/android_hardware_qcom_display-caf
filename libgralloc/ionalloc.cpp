@@ -86,7 +86,7 @@ int IonAlloc::alloc_buffer(alloc_data& data)
     if(ioctl(mIonFd, ION_IOC_ALLOC, &ionAllocData)) {
         err = -errno;
         ALOGE("ION_IOC_ALLOC failed with error - %s", strerror(errno));
-        return err;
+        return -ENOMEM;
     }
 
     fd_data.handle = ionAllocData.handle;
